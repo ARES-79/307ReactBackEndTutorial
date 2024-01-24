@@ -76,10 +76,21 @@ app.post('/users', (req, res) => {
     addUser(userToAdd);
     res.status(200).end();
    });
-   
+
 function addUser(user){
     users['users_list'].push(user);
 }
+
+app.delete('/users/:id', (req, res) => {
+    const id = req.params['id']; //or req.params.id
+    let result = users['users_list'].findIndex( (user) => user['id'] === id); 
+    if (result === -1)
+        res.status(404).send('Resource not found.');
+    else{
+        users['users_list'].splice(result, 1);
+        res.status(204).end();
+    }
+});
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
