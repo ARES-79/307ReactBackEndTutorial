@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const port = 5000;
 
@@ -33,6 +34,7 @@ const users = {
     ]
 }
 
+app.use(cors());
 app.use(express.json());
 
 app.get('/', (req, res) => {
@@ -82,7 +84,7 @@ function findUserById(id) {
 app.post('/users', (req, res) => {
     const userToAdd = req.body;
     addUser(userToAdd);
-    res.status(200).end();
+    res.status(201).end();
    });
 
 function addUser(user){
